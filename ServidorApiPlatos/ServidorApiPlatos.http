@@ -1,0 +1,6 @@
+@ServidorApiPlatos_HostAddress = http://localhost:5169
+
+GET {{ServidorApiPlatos_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
