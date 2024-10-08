@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PlatosComida.Pages.GestionPlatosPage"
+             Title="Gestionar Plato">
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10,5,10,5"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout Padding="10">
+        <TableView Intent="Form">
+            <TableRoot>
+                <TableSection Title="Detalles del Plato">
+                    <EntryCell Label="Nombre:" 
+                               Placeholder="Introduzca el nombre del plato" 
+                               Text="{Binding plato.Nombre}" />
+
+                    <EntryCell Label="Costo:" 
+                               Placeholder="Introduzca el costo del plato" 
+                               Keyboard="Numeric" 
+                               Text="{Binding plato.Costo}" />
+
+                    <EntryCell Label="Ingredientes:" 
+                               Placeholder="Introduzca los ingredientes" 
+                               Text="{Binding plato.Ingredientes}" />
+                </TableSection>
+            </TableRoot>
+        </TableView>
+
+        <Grid Padding="10,0" RowDefinitions="Auto" ColumnDefinitions="*,*,*">
+            <Button Text="Eliminar" 
+                    BackgroundColor="Red" 
+                    TextColor="White" 
+                    Clicked="OnEliminarClic" 
+                    Grid.Column="0"/>
+
+            <Button Text="Cancelar" 
+                    BackgroundColor="Gray" 
+                    TextColor="White" 
+                    Clicked="OnCancelClic" 
+                    Grid.Column="1"/>
+
+            <Button Text="Guardar" 
+                    BackgroundColor="Green" 
+                    TextColor="White" 
+                    Clicked="OnGuardarClic" 
+                    Grid.Column="2"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

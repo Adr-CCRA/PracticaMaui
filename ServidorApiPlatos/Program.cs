@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using ServidorAPIparaMAUI.Content;
+using ServidorApiPlatos.Content;
 using ServidorApiPlatos.Models;
 
 var builder = WebApplication.CreateBuilder(args);

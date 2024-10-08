@@ -1,25 +1,48 @@
-﻿namespace PlatosComida
+﻿using PlatosComida.ConexionDatos;
+using PlatosComida.Models;
+using PlatosComida.Pages;
+using System.Diagnostics;
+using System.Linq;
+
+namespace PlatosComida
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private readonly IRestConexionDatos conexionDatos;
 
-        public MainPage()
+        public MainPage(IRestConexionDatos conexionDatos)
         {
             InitializeComponent();
+            this.conexionDatos = conexionDatos;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        protected async override void OnAppearing()
         {
-            count++;
+            base.OnAppearing();
+            // Obtener los platos del servidor
+            var platos = await conexionDatos.GetPlatosAsync();
+            // Ordenar aleatoriamente la lista
+            coleccionPlatosView.ItemsSource = platos.OrderBy(p => Guid.NewGuid()).ToList();
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+        // Evento Add
+        async void OnAddPlatoClic(object sender, EventArgs e)
+        {
+            Debug.WriteLine("[EVENTO] Botón AddPlato clickeado");
+            var param = new Dictionary<string, object> {
+                { nameof(Platos), new Platos() }
+            };
+            await Shell.Current.GoToAsync(nameof(GestionPlatosPage), param);
+        }
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        // Evento clic en un plato de la lista
+        async void OnelementoCambiado(object sender, SelectionChangedEventArgs e)
+        {
+            Debug.WriteLine("[EVENTO] Elemento cambiado");
+            var param = new Dictionary<string, object> {
+                { nameof(Platos), e.CurrentSelection.FirstOrDefault() as Platos }
+            };
+            await Shell.Current.GoToAsync(nameof(GestionPlatosPage), param);
         }
     }
-
 }
