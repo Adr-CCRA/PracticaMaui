@@ -10,10 +10,18 @@ app.MapGet("api/plato", async (AppDbContext contexto) => {
     var elementos = await contexto.Platos.ToListAsync();
     return Results.Ok(elementos);
 });
-app.MapPost("api/plato", async (AppDbContext contexto, Plato plato) => {
-    var elementos = await contexto.Platos.AddAsync(plato);
-    await contexto.SaveChangesAsync();
-    return Results.Created($"api/plato/{plato.Id}", plato);
+app.MapPost("api/plato", async (AppDbContext contexto, Plato plato) =>
+{
+    try
+    {
+        var elementos = await contexto.Platos.AddAsync(plato);
+        await contexto.SaveChangesAsync();
+        return Results.Created($"api/plato/{plato.Id}", plato);
+    }
+    catch (Exception e)
+    {
+        return Results.Problem($"Error al crear el plato: {e.Message}");
+    }
 });
 app.MapPut("api/plato/{identificador}", async (AppDbContext contexto, int identificador, Plato plato) => {
     var platoModelo = await contexto.Platos.FirstOrDefaultAsync(pl => pl.Id == identificador);

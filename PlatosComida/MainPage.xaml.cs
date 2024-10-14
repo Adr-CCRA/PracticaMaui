@@ -22,7 +22,7 @@ namespace PlatosComida
             // Obtener los platos del servidor
             var platos = await conexionDatos.GetPlatosAsync();
             // Ordenar aleatoriamente la lista
-            coleccionPlatosView.ItemsSource = platos.OrderBy(p => Guid.NewGuid()).ToList();
+            coleccionPlatosView.ItemsSource = platos.Shuffle().ToList();
         }
 
         // Evento Add

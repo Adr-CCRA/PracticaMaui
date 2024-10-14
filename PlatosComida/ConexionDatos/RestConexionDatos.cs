@@ -19,8 +19,8 @@ namespace PlatosComida.ConexionDatos
         {
             //httpClient = new HttpClient();
             this.httpClient = httpClient;
-            //dominio = DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:7169" : "https://localhost:7169";
-            dominio = "https://localhost:7169";
+            dominio = DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:7169" : "https://localhost:7169";
+            //dominio = "https://localhost:7169";
             url = $"{dominio}/api";
             opcionesJson = new JsonSerializerOptions
             {
